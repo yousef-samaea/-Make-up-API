@@ -12,8 +12,8 @@ const PORT = process.env.PORT || 3000;
 
 
 // Database
-//const client = new pg.Client(process.env.DATABASE_URL);
-const client = new pg.Client({ connectionString: process.env.DATABASE_URL,   ssl: { rejectUnauthorized: false } });
+const client = new pg.Client(process.env.DATABASE_URL);
+//const client = new pg.Client({ connectionString: process.env.DATABASE_URL,   ssl: { rejectUnauthorized: false } });
 
 // app
 const app = express();
@@ -30,7 +30,20 @@ app.get('/cart', renderCart)
 app.get('/delete', handleDelete)
 app.get('update', handleUpdate)
 function homePage(req,res){
-    let url =''
+    let product = req.body.productName;
+    let min = req.body.min;
+    let max = req.body.max;
+    let url = `http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline&price_greater_than=${min}&price_less_than=${max}`
+    superagent.get(url)
+    .then(makeupData => {
+        makeupData.forEach(item => {
+            let newProduct = new Product(item)
+            all.push(newProduct)
+        })
+        
+        res.render('allProducts',{products:all})
+    })
+    
 }
 function showResults(req,res){
 let product = req.body.productName;
