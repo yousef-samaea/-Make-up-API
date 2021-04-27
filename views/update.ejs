@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <form action="/add">
+            <h3><%=element.name%></h3>
+        <img src="<%=element.image%>" alt="">
+        <p><%element.price%></p>
+        <p><%=element.description%></p>
+        <input type="hidden" name = "description", value =  <%= element.description%>      >
+        <input type="hidden" name = "image", value =  <%= element.image%>      >
+        <input type="hidden" name = "name", value =  <%= element.name%>      >
+        <input type="hidden" name = "price", value =  <%= element.price%>      >
+        <button> update  </button>
+
+
+        </form>
+</body>
+</html>
